@@ -1,12 +1,16 @@
 CREATE DATABASE IF NOT EXISTS gescom;
 USE gescom;
 
+-- J'ai mis en premières tables celles qui n'ont que des clés primaires ou des clés étrangères appartenant à leur propre table (exemple id_employees_1 dans EMPLOYEES), car on ne peut pas déclarer une clé étrangère d'une autre table tant qu'elle n'a pas été déclarée en tant que clé primaire dans sa table d'origine.
+
 CREATE TABLE ORDERS(
    id_order INT(10) NOT NULL AUTO_INCREMENT,
    order_deliveries VARCHAR(50),
    order_payments VARCHAR(50),
    PRIMARY KEY(id_order)
 );
+
+-- Pour moi EMPLOYEES (les employés) est une table à part, car je ne voyais pas l'intérêt de la joindre à une autre table, car pour moi les employés n'ont pas de lien avec les clients, ou les produits, ou les commandes ou les commerciaux. Pour moi les commandes se font sur internet, et donc les employés ne préparent les commandes internet, ils s'occupent seulement des produits en magasin, hors ici dans la table PRODUCTS on parle bien des produits vendus uniquement sur internet.
 
 CREATE TABLE EMPLOYEES(
    id_employees INT(10) NOT NULL AUTO_INCREMENT,
@@ -90,6 +94,8 @@ CREATE TABLE ORDER_DETAILS(
    FOREIGN KEY(id_products) REFERENCES PRODUCTS(id_products),
    FOREIGN KEY(id_order) REFERENCES ORDERS(id_order)
 );
+
+-- Cette table est une association dans mon Merise, et j'ai trouvé logique de la mettre en fin de script car elle est composée uniquement de clés venant de d'autres tables
 
 CREATE TABLE ORDERING(
    id_order INT(10),
